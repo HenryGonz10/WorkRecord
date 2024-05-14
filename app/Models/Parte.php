@@ -15,6 +15,7 @@ class Parte extends Model
         'codigo',
         'cliente_id',
         'usuario_id',
+        'empresa_id',
         'fecha_firma',
         'observacion',
         'estado',     // Estado del usuario (activo/inactivo)

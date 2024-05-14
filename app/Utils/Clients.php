@@ -3,12 +3,35 @@
 namespace App\Utils;
 
 use App\Models\User;
+use App\Models\Empresa;
 
 class Clients
 {
     public static function getCountClients()
     {
         return User::where('estado', 1)->whereNotNull('empresa_id')->count();
+    }
+
+    public static function searchCompany($valor)
+    {
+        $empresas = Empresa::where('cif', 'like', "%$valor%")
+            ->orWhere('nombre', 'like', "%$valor%")
+            ->orWhere('domicilio', 'like', "%$valor%")
+            ->orWhere('telefono', 'like', "%$valor%")
+            ->orWhere('email', 'like', "%$valor%")
+            ->orWhere('web', 'like', "%$valor%")
+            ->get();
+        return response()->json($empresas);
+    }
+
+    public static function getCompany($id) {
+        $empresa = Empresa::find($id);
+
+        if ($empresa) {
+            return $empresa;
+        } else {
+            return response()->json(['error' => 'Empresa no encontrada'], 404);
+        }
     }
 
     public static function getPaginatedClients($perPage = 10, $limit = 0)
@@ -39,5 +62,13 @@ class Clients
     {
         // Buscar un usuario por correo electrónico
         return User::where('estado', 1)->whereNotNull('empresa_id')->where('email', $email)->first(); // Devuelve el primer usuario que coincide
+    }
+
+    public static function createClient($obj){
+
+    }
+
+    public static function updateClient($obj){
+
     }
 }

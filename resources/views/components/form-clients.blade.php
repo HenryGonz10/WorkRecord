@@ -1,4 +1,6 @@
-<form method="{{ $method ?? 'POST' }}" action="{{ $action }}" onsubmit="return validateForm()">
+@props(['action', 'method' => 'POST', 'company'])
+
+<form method="{{ $method }}" action="{{ $action }}" onsubmit="return validateForm()">
     @csrf
     <div class="py-7">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -7,18 +9,27 @@
                 <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-2/3">
                     <x-card>
                         <x-slot name="header">
-                            <h2 class="font-extrabold text-lg text-blue-950">
-                                {{ __('Company') }}
-                            </h2>
+                            <section class="flex justify-between items-center">
+                                <h2 class="font-extrabold text-lg text-blue-950">
+                                    {{ __('Company') }}
+                                </h2>
+                                <a class="mx-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition ease-in-out duration-200"
+                                    href="javascript:;" id="search-button">
+                                    <i class="fa-solid fa-magnifying-glass ml-4 my-2"></i>
+                                    <span class="m-4">{{ __('Search') }}</span>
+                                </a>
+                            </section>
                         </x-slot>
 
                         <x-slot name="body">
                             <div class="mx-2">
+                                <!-- Campo id -->
+                                <input id="empresa_id" name="empresa_id" value="{{ $company->id ?? '' }}" hidden />
                                 <!-- Campo CIF -->
                                 <div class="mb-4">
                                     <x-label for="cif" :value="__('CIF')" />
-                                    <x-input id="cif" type="text" name="cif" :value="old('cif')"
-                                        class="block w-full" required />
+                                    <x-input id="cif" type="text" name="cif" class="block w-full"
+                                        value="{{ $company->cif ?? old('cif') }}" required />
                                     <p class="text-red-600 hidden" id="cifError">
                                         {{ __('CIF') . ' ' . __('is requied.') }}</p>
                                     @error('cif')
@@ -29,8 +40,10 @@
                                 <!-- Campo Nombre -->
                                 <div class="mb-4">
                                     <x-label for="nombre" :value="__('Name')" />
-                                    <x-input id="nombre" type="text" name="nombre" :value="old('nombre')"
-                                        class="block w-full" required />
+                                    <!-- Ejemplo con el campo de nombre -->
+                                    <x-input id="nombre" type="text" name="nombre" class="block w-full"
+                                        value="{{ $company->nombre ?? old('nombre')  }}" required />
+
                                     <p class="text-red-600 hidden" id="nombreError">
                                         {{ __('Name') . ' ' . __('is required.') }}</p>
                                     @error('nombre')
@@ -43,7 +56,7 @@
                                     <x-label for="domicilio" :value="__('Address')" />
                                     <textarea id="domicilio" name="domicilio" rows="4"
                                         class="block w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring focus:border-blue-300 transition"
-                                        required>{{ old('domicilio') }}</textarea>
+                                        required>{{ $company->domicilio ?? old('domicilio') }}</textarea>
                                     @error('domicilio')
                                         <span class="text-red-600">{{ $message }}</span>
                                     @enderror
@@ -52,8 +65,8 @@
                                 <!-- Campo Teléfono -->
                                 <div class="mb-4">
                                     <x-label for="telefono" :value="__('Phone')" />
-                                    <x-input id="telefono" type="tel" name="telefono" :value="old('telefono')"
-                                        class="block w-full" required />
+                                    <x-input id="telefono" type="tel" name="telefono"
+                                        class="block w-full" value="{{ $company->telefono ?? old('telefono') }}" required />
                                     @error('telefono')
                                         <span class="text-red-600">{{ $message }}</span>
                                     @enderror
@@ -62,8 +75,8 @@
                                 <!-- Campo Email -->
                                 <div class="mb-4">
                                     <x-label for="email" :value="__('Email')" />
-                                    <x-input id="email" type="email" name="email" :value="old('email')"
-                                        class="block w-full" required />
+                                    <x-input id="email" type="email" name="email"
+                                        class="block w-full" value="{{ $company->email ?? old('email') }}" required />
                                     <p class="text-red-600 hidden" id="emailError">
                                         {{ __('Email') . ' ' . __('is required.') }}</p>
                                     @error('email')
@@ -74,8 +87,8 @@
                                 <!-- Campo Web -->
                                 <div class="mb-4">
                                     <x-label for="web" :value="__('Website')" />
-                                    <x-input id="web" type="url" name="web" :value="old('web')"
-                                        class="block w-full" />
+                                    <x-input id="web" type="url" name="web"
+                                        value="{{ $company->web ?? old('web') }}" class="block w-full" />
                                 </div>
                             </div>
                         </x-slot>
@@ -117,13 +130,12 @@
             </div>
         </div>
     </div>
-</form>
 
-<div class="relative">
-    <button
-        class="fixed bottom-8 right-8 bg-green-600 text-white rounded-full hover:bg-green-700 transition ease-in-out duration-200 p-4 group"
-        type="submit">
-        <i class="fa-solid fa-floppy-disk fa-2x"></i>
-    </button>
-</div>
+    <div class="relative">
+        <button
+            class="fixed bottom-8 right-8 bg-green-600 text-white rounded-full hover:bg-green-700 transition ease-in-out duration-200 p-4 group"
+            type="submit">
+            <i class="fa-solid fa-floppy-disk fa-2x"></i>
+        </button>
+    </div>
 </form>

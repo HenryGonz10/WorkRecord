@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('codigo', 8)->unique();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->onDelete('no action');
             $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('no action');
+            $table->unsignedBigInteger('empresa_id');
             $table->dateTime('fecha_firma')->nullable();
             $table->string('observacion')->nullable();
             $table->boolean('estado')->default(1);

@@ -32,4 +32,7 @@ Route::middleware([
     Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
     Route::get('/clientes/add', [ClientesController::class, 'create'])->name('clientes.add');
     Route::post('/clientes/add', [ClientesController::class, 'store'])->name('clientes.store');
+
+    // Ruta para buscar compañías/clientes por nombre
+    Route::post('/company/search', [ClientesController::class, 'getCompany'])->name('company.search');
 });

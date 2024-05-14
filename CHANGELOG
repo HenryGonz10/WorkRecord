@@ -1,0 +1,19 @@
+# Changelog
+## [Unreleased]
+
+### Added
+
+- Formulario para clientes
+- Busqueda de Empresas
+- Manejo de Empresas
+- Carga de empresas
+- Manejo de errores
+- Integración de alertas
+- Manejo de Sesiones
+- Integración de validaciones
+- Creación de variables de entorno para producción
+- Validaciones con JS
+
+### Changed
+
+### Removed
