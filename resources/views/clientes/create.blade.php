@@ -20,9 +20,5 @@
             </h2>
         </div>
     </x-slot>
-    <x-form-clients action="{{ route('clientes.store') }}" method="POST" />
-
-    @push('scripts')
-        @vite(['resources/js/validations-client.js'])
-    @endpush
+    <x-form-clients action="{{ route('clientes.store') }}" method="POST" :company="$company" :client="$client" />
 </x-app-layout>
