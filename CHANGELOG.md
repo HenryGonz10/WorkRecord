@@ -13,6 +13,11 @@
 - Integración de validaciones
 - Creación de variables de entorno para producción
 - Validaciones con JS
+- Edición de clientes
+- Edición general de empresas
+- Edición de clientes
+- Creación de clientes
+- Eliminación de clientes
 
 ### Changed
 

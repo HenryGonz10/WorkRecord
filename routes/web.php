@@ -30,8 +30,9 @@ Route::middleware([
 
     // Ruta para la lista de clientes
     Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
-    Route::get('/clientes/add', [ClientesController::class, 'create'])->name('clientes.add');
+    Route::get('/clientes/add/{encoded?}', [ClientesController::class, 'create'])->name('clientes.add');
     Route::post('/clientes/add', [ClientesController::class, 'store'])->name('clientes.store');
+    Route::post('/clientes/delete/{clientId}', [ClientesController::class, 'delete'])->name('clientes.delete');
 
     // Ruta para buscar compañías/clientes por nombre
     Route::post('/company/search', [ClientesController::class, 'getCompany'])->name('company.search');

@@ -24,7 +24,8 @@ class Clients
         return response()->json($empresas);
     }
 
-    public static function getCompany($id) {
+    public static function getCompany($id)
+    {
         $empresa = Empresa::find($id);
 
         if ($empresa) {
@@ -46,7 +47,7 @@ class Clients
         )
             ->leftJoin('empresas', 'users.empresa_id', '=', 'empresas.id') // Unir con empresas
             ->where('users.estado', 1) // Filtrar por estado
-            //->where('users.password', null) // Filtrar por condición de password
+            ->where('users.password', null) // Filtrar por condición de password
             ->orderBy('users.id', 'asc'); // Ordenar por ID
 
         // Aplicar 'take' solo si el parámetro 'limit' es mayor a cero
@@ -58,17 +59,15 @@ class Clients
         return $query->paginate($perPage);
     }
 
+    public static function getClient($id)
+    {
+        // Ejecutar la consulta para obtener el usuario específico
+        return User::where('id', $id)->where('estado', 1)->first();
+    }
+
     public static function findClientByEmail($email)
     {
         // Buscar un usuario por correo electrónico
         return User::where('estado', 1)->whereNotNull('empresa_id')->where('email', $email)->first(); // Devuelve el primer usuario que coincide
-    }
-
-    public static function createClient($obj){
-
-    }
-
-    public static function updateClient($obj){
-
     }
 }

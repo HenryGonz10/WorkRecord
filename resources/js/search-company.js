@@ -52,7 +52,7 @@ document.getElementById('search-button').addEventListener('click', function() {
                 }).then(selection => {
                     if (selection.isConfirmed && selection.value) {
                         const selectedcompany = companys[selection.value];
-                        history.pushState(null, '', `?company=${selectedcompany.id}`);
+                        history.pushState(null, '', '/clientes/add/' + btoa('company=' + selectedcompany.id));
                         document.getElementById('empresa_id').value = selectedcompany.id;
                         document.getElementById('cif').value = selectedcompany.cif;
                         document.getElementById('nombre').value = selectedcompany.nombre;
@@ -65,7 +65,7 @@ document.getElementById('search-button').addEventListener('click', function() {
 
             } else if (companys.length === 1) {
                 const company = companys[0];
-                history.pushState(null, '', `?company=${company.id}`);
+                history.pushState(null, '', '/clientes/add/' + btoa('company=' + company.id));
                 document.getElementById('empresa_id').value = company.id;
                 document.getElementById('cif').value = company.cif;
                 document.getElementById('nombre').value = company.nombre;

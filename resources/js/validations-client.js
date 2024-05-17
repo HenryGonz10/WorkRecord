@@ -1,4 +1,4 @@
-function validateForm() {
+function validateClientForm(event) {
     var isValid = true;
 
     // Validar CIF
@@ -32,5 +32,14 @@ function validateForm() {
         emailError.classList.add("hidden");
     }
 
-    return isValid;
+    if (!isValid) {
+        // Prevenir que el formulario se envíe si no es válido
+        event.preventDefault();
+    }
 }
+
+// Agregar event listener al formulario con id 'frmClient'
+document.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById("frmClient");
+    form.addEventListener("submit", validateClientForm);
+});

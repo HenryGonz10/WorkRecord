@@ -1,6 +1,6 @@
-@props(['action', 'method' => 'POST', 'company'])
+@props(['action', 'method' => 'POST', 'company', 'client'])
 
-<form method="{{ $method }}" action="{{ $action }}" onsubmit="return validateForm()">
+<form method="{{ $method }}" action="{{ $action }}" id="frmClient">
     @csrf
     <div class="py-7">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -87,7 +87,7 @@
                                 <!-- Campo Web -->
                                 <div class="mb-4">
                                     <x-label for="web" :value="__('Website')" />
-                                    <x-input id="web" type="url" name="web"
+                                    <x-input id="web" type="text" name="web"
                                         value="{{ $company->web ?? old('web') }}" class="block w-full" />
                                 </div>
                             </div>
@@ -105,10 +105,12 @@
                         </x-slot>
 
                         <x-slot name="body">
+                            <!-- Campo id -->
+                            <input id="client_id" name="client_id" value="{{ $client->id ?? '' }}" hidden />
                             <!-- Campo Name -->
                             <div class="mb-4">
                                 <x-label for="client_name" :value="__('Name')" />
-                                <x-input id="client_name" type="text" name="client_name" :value="old('client_name')"
+                                <x-input id="client_name" type="text" name="client_name" value="{{ $client->name ?? old('client_name') }}"
                                     class="block w-full" required />
                                 @error('client_name')
                                     <span class="text-red-600">{{ $message }}</span>
@@ -118,7 +120,7 @@
                             <!-- Campo Email -->
                             <div class="mb-4">
                                 <x-label for="client_email" :value="__('Email')" />
-                                <x-input id="client_email" type="email" name="client_email" :value="old('client_email')"
+                                <x-input id="client_email" type="email" name="client_email" value="{{ $client->email ?? old('client_email')}}"
                                     class="block w-full" required />
                                 @error('client_email')
                                     <span class="text-red-600">{{ $message }}</span>
@@ -139,3 +141,8 @@
         </button>
     </div>
 </form>
+
+@push('scripts')
+    @vite(['resources/js/validations-client.js'])
+    @vite(['resources/js/search-company.js'])
+@endpush
